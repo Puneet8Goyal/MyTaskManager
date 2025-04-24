@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">MyTaskManager</string>
+    <string name="task_title">Task Title</string>
+    <string name="description">Description</string>
+    <string name="priority_low_medium_high">Priority (Low, Medium, High)</string>
+    <string name="due_date_e_g_2025_05_01">Due Date (e.g., 2025–05–01)</string>
+    <string name="add_task">Add Task</string>
+    <string name="priority_high">Priority: High</string>
+    <string name="due_2025_04_25">Due: 2025–04–25</string>
+    <string name="pending">🕒 Pending</string>
+    <string name="mark_as_done">Mark as Done</string>
+    <string name="search_tasks">Search tasks…</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search">Search</string>
+</resources>
