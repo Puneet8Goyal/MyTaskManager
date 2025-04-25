@@ -11,7 +11,35 @@
     <string name="mark_as_done">Mark as Done</string>
     <string name="search_tasks">Search tasks…</string>
     <string name="search">Search</string>
-
+    <string name="completed">✅ Completed</string>
+    <string name="mark_as_pending">Mark as Pending</string>
+    <string name="priority">Priority: %1$s</string>
+    <string name="due">Due: %1$s</string>
+    <string name="created">Created: %1$s</string>
+    <string name="completed_early">Completed Early</string>
+    <string name="completed_on_time">Completed On Time</string>
+    <string name="completed_late">Completed Late</string>
+    <string name="please_select_a_completion_status">Please select a completion status</string>
+    <string name="asc">ASC</string>
+    <string name="due_date">Due Date</string>
+    <string name="high">High</string>
+    <string name="medium">Medium</string>
+    <string name="low">Low</string>
+    <string name="desc">DESC</string>
+    <string name="created_date">Created Date</string>
+    <string name="yyyy_mm_dd">yyyy-MM-dd</string>
+    <string name="select_from_date">Select From Date</string>
+    <string name="select_to_date">Select To Date</string>
+    <string name="select_due_date">Select Due Date</string>
+    <string name="date_picker">DATE_PICKER</string>
+    <string name="title_priority_required"><![CDATA[Title & Priority required]]></string>
+    <string name="task_updated">Task updated!</string>
+    <string name="task_added">Task added!</string>
+    <string name="task">task</string>
+    <string name="update_task">Update Task</string>
+    <string name="isCompleted">isCompleted</string>
+    <string name="none">None</string>
+    <string name="name">name</string>
 
 
 </resources>

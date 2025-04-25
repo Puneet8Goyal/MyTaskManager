@@ -62,4 +62,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation (libs.material.v190)
+    implementation(libs.androidx.core.splashscreen)
+    implementation (libs.androidx.core.splashscreen.v100)
+
 }

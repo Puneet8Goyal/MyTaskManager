@@ -5,6 +5,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.widget.RadioButton
 import android.widget.Toast
+import com.example.mytaskmanager.R
 import com.example.mytaskmanager.databinding.DialogCompletionStatusBinding
 import com.example.mytaskmanager.model.Task
 
@@ -23,16 +24,20 @@ class ChangeTaskStatusDialog(
 
         // Restore current status if present
         when (task.completedOnTime) {
-            "Completed Early" -> binding.rbEarly.isChecked = true
-            "Completed On Time" -> binding.rbOnTime.isChecked = true
-            "Completed Late" -> binding.rbLate.isChecked = true
+            context.getString(R.string.completed_early) -> binding.rbEarly.isChecked = true
+            context.getString(R.string.completed_on_time) -> binding.rbOnTime.isChecked = true
+            context.getString(R.string.completed_late) -> binding.rbLate.isChecked = true
         }
 
         // Set up confirm button
         binding.btnConfirm.setOnClickListener {
             val selectedId = binding.radioGroupStatus.checkedRadioButtonId
             if (selectedId == -1) {
-                Toast.makeText(context, "Please select a completion status", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.please_select_a_completion_status),
+                    Toast.LENGTH_SHORT
+                ).show()
                 return@setOnClickListener
             }
 

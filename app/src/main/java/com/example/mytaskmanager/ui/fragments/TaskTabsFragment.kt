@@ -1,4 +1,4 @@
-package com.example.mytaskmanager.ui.tabs
+package com.example.mytaskmanager.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.mytaskmanager.R
 import com.example.mytaskmanager.databinding.FragmentTaskTabsBinding
+import com.example.mytaskmanager.ui.adapters.TaskTabsPagerAdapter
 import com.example.mytaskmanager.ui.dialog.FilterBottomSheet
-import com.example.mytaskmanager.ui.list.TasksListFragment
 import com.google.android.material.tabs.TabLayoutMediator
 
 class TaskTabsFragment : Fragment() {
-    private lateinit var binding: FragmentTaskTabsBinding
+    private val binding by lazy { FragmentTaskTabsBinding.inflate(layoutInflater) }
     private lateinit var adapter: TaskTabsPagerAdapter
 
     override fun onCreateView(
@@ -20,7 +20,6 @@ class TaskTabsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentTaskTabsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -34,8 +33,8 @@ class TaskTabsFragment : Fragment() {
         // Set up TabLayout with ViewPager
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = when (position) {
-                0 -> "Pending"
-                1 -> "Completed"
+                0 -> getString(R.string.pending)
+                1 -> getString(R.string.completed)
                 else -> ""
             }
         }.attach()

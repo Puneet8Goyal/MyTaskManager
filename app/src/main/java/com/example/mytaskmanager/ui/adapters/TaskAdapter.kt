@@ -1,4 +1,4 @@
-package com.example.mytaskmanager.ui.list
+package com.example.mytaskmanager.ui.adapters
 
 import android.content.res.ColorStateList
 import android.view.LayoutInflater
@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.graphics.toColorInt
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mytaskmanager.R
 import com.example.mytaskmanager.databinding.ItemTaskBinding
@@ -22,7 +21,7 @@ class TaskAdapter(
 
     inner class TaskViewHolder(val binding: ItemTaskBinding) : RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskAdapter.TaskViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val binding = ItemTaskBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return TaskViewHolder(binding)
     }
@@ -30,24 +29,28 @@ class TaskAdapter(
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val task = taskList[position]
         with(holder.binding) {
-            if (position == taskList.size - 1) {
-                bottomView.isVisible = true
-            }
+
+            val context = holder.binding.root.context
+
             tvTitle.text = task.title
             tvDescription.text = task.description
-            tvPriority.text = "Priority: ${task.priority}"
-            tvDueDate.text = "Due: ${task.dueDate}"
-            chipStatus.text = if (task.isCompleted) "✅ Completed" else "🕒 Pending"
+            tvPriority.text = context.getString(R.string.priority, task.priority)
+            tvDueDate.text = context.getString(R.string.due, task.dueDate)
+            chipStatus.text =
+                if (task.isCompleted) context.getString(R.string.completed) else context.getString(R.string.pending)
             chipStatus.chipBackgroundColor = ColorStateList.valueOf(
                 if (task.isCompleted) "#C8E6C9".toColorInt() else "#FFE0B2".toColorInt()
             )
             if (task.isCompleted && task.completedOnTime.isNotBlank()) {
-                tvCompletedStatus.text = "${task.completedOnTime}"
+                tvCompletedStatus.text = task.completedOnTime
                 tvCompletedStatus.visibility = View.VISIBLE
             } else {
                 tvCompletedStatus.visibility = View.GONE
             }
-            btnToggleComplete.text = if (task.isCompleted) "Mark as Pending" else "Mark as Done"
+            btnToggleComplete.text =
+                if (task.isCompleted) context.getString(R.string.mark_as_pending) else context.getString(
+                    R.string.mark_as_done
+                )
         }
         holder.binding.btnToggleComplete.setOnClickListener {
             onToggleStatusClick(task)
@@ -72,7 +75,8 @@ class TaskAdapter(
             }
             popup.show()
         }
-        holder.binding.tvCreatedDate.text = "Created: ${task.createdAt}"
+        holder.binding.tvCreatedDate.text =
+            holder.binding.root.context.getString(R.string.created, task.createdAt)
     }
 
     override fun getItemCount(): Int = taskList.size

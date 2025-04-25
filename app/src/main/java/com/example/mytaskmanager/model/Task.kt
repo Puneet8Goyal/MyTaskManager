@@ -15,5 +15,5 @@ data class Task(
     val dueDate: String? = null,
     val isCompleted: Boolean = false,
     val completedOnTime: String = "",
-    val createdAt: String? = null
+    val createdAt: String? = null,
 ) : Serializable

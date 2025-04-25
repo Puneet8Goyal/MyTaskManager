@@ -1,5 +1,6 @@
-package com.example.mytaskmanager.ui.list
+package com.example.mytaskmanager.ui.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,15 +11,16 @@ import android.widget.ArrayAdapter
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mytaskmanager.R
 import com.example.mytaskmanager.data.database.TaskDatabase
 import com.example.mytaskmanager.databinding.FragmentTasksListBinding
 import com.example.mytaskmanager.model.Task
 import com.example.mytaskmanager.repository.TaskRepository
-import com.example.mytaskmanager.ui.add.AddTaskFragment
+import com.example.mytaskmanager.ui.adapters.TaskAdapter
 import com.example.mytaskmanager.ui.dialog.ChangeTaskStatusDialog
 import com.example.mytaskmanager.ui.dialog.FilterBottomSheet
+import com.example.mytaskmanager.utils.AppConstants
+import com.example.mytaskmanager.utils.launchNextPage
 import com.example.mytaskmanager.viewmodel.TaskViewModel
 import com.example.mytaskmanager.viewmodel.TaskViewModelFactory
 import java.text.SimpleDateFormat
@@ -26,10 +28,10 @@ import java.util.Locale
 
 class TasksListFragment : Fragment() {
 
-    private lateinit var binding: FragmentTasksListBinding
+    private val binding by lazy { FragmentTasksListBinding.inflate(layoutInflater) }
     private lateinit var viewModel: TaskViewModel
     private lateinit var adapter: TaskAdapter
-    private var showCompleted: Boolean = false
+     var showCompleted: Boolean = false
     private var allFilteredTasks: List<Task> = emptyList()
 
     override fun onCreateView(
@@ -37,8 +39,16 @@ class TasksListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentTasksListBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    private val sheet by lazy {
+        FilterBottomSheet(
+            requireContext(),
+
+            ) { priority, order, sortBy, fromDate, toDate ->
+            applyFilterFromBottomSheet(priority, order, sortBy, fromDate, toDate)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,9 +59,14 @@ class TasksListFragment : Fragment() {
         val factory = TaskViewModelFactory(repository)
         viewModel = ViewModelProvider(this, factory)[TaskViewModel::class.java]
 
-        showCompleted = arguments?.getBoolean("isCompleted") ?: false
+        showCompleted = arguments?.getBoolean(getString(R.string.isCompleted)) ?: false
 
-        val sortOptions = listOf("None", "Priority", "Due Date", "Created Date")
+        val sortOptions: List<String> = listOf(
+            getString(R.string.none),
+            getString(R.string.priority),
+            getString(R.string.due_date),
+            getString(R.string.created_date)
+        )
         val spinnerAdapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_dropdown_item,
@@ -63,15 +78,10 @@ class TasksListFragment : Fragment() {
 
         adapter = TaskAdapter(
             onEdit = { selectedTask ->
-                val fragment = AddTaskFragment().apply {
-                    arguments = Bundle().apply {
-                        putSerializable("task", selectedTask)
-                    }
-                }
-                childFragmentManager.beginTransaction()
-                    .replace(R.id.childFragmentContainer, fragment)
-                    .addToBackStack(null)
-                    .commit()
+                requireContext().launchNextPage(
+                    AppConstants.FragmentsTypes.addTaskFragment,
+                    init = { putExtra(getString(R.string.task), selectedTask) })
+
             },
             onDelete = { taskToDelete ->
                 viewModel.deleteTask(taskToDelete)
@@ -88,7 +98,6 @@ class TasksListFragment : Fragment() {
             }
         )
 
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
 
         binding.etSearch.addTextChangedListener { editable ->
@@ -114,18 +123,11 @@ class TasksListFragment : Fragment() {
 
         // Set up filter button
         binding.btnFilter.setOnClickListener {
-            FilterBottomSheet(requireContext()) { priority, order, sortBy, fromDate, toDate ->
-                applyFilterFromBottomSheet(priority, order, sortBy, fromDate, toDate)
-            }.open()
+            sheet.open()
         }
 
         binding.fabAddTask.setOnClickListener {
-            binding.fabAddTask.visibility = View.GONE
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainer, AddTaskFragment())
-                .addToBackStack(null)
-                .commit()
-
+            requireContext().launchNextPage(AppConstants.FragmentsTypes.addTaskFragment)
         }
 
         viewModel.allTasks.observe(viewLifecycleOwner) { tasks ->
@@ -147,7 +149,7 @@ class TasksListFragment : Fragment() {
         fromDate: String?,
         toDate: String?
     ) {
-        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val sdf = SimpleDateFormat(getString(R.string.yyyy_mm_dd), Locale.getDefault())
         val filtered = allFilteredTasks
             .filter { task ->
                 val taskDate = try {
@@ -170,15 +172,15 @@ class TasksListFragment : Fragment() {
                 passPriority && passDateRange
             }.let {
                 when (sortBy) {
-                    "Due Date" -> if (order == "ASC") it.sortedBy { t -> t.dueDate } else it.sortedByDescending { t -> t.dueDate }
-                    "Created Date" -> if (order == "ASC") it.sortedBy { t -> t.createdAt } else it.sortedByDescending { t -> t.createdAt }
+                    getString(R.string.due_date) -> if (order == getString(R.string.asc)) it.sortedBy { t -> t.dueDate } else it.sortedByDescending { t -> t.dueDate }
+                    getString(R.string.created_date) -> if (order == getString(R.string.asc)) it.sortedBy { t -> t.createdAt } else it.sortedByDescending { t -> t.createdAt }
                     else -> it
                 }
             }
         adapter.setTasks(filtered)
     }
 
-    private fun applyFiltersAndSort(query: String = "", sortBy: String = "None") {
+    private fun applyFiltersAndSort(query: String = "", sortBy: String = getString(R.string.none)) {
         var filtered = allFilteredTasks
 
         if (query.isNotEmpty()) {
@@ -189,17 +191,17 @@ class TasksListFragment : Fragment() {
         }
 
         filtered = when (sortBy) {
-            "Priority" -> filtered.sortedBy {
+            getString(R.string.priority) -> filtered.sortedBy {
                 when (it.priority?.lowercase()) {
-                    "high" -> 1
-                    "medium" -> 2
-                    "low" -> 3
+                    getString(R.string.high) -> 1
+                    getString(R.string.medium) -> 2
+                    getString(R.string.low) -> 3
                     else -> 4
                 }
             }
 
-            "Due Date" -> filtered.sortedBy { it.dueDate }
-            "Created Date" -> filtered.sortedBy { it.createdAt }
+            getString(R.string.due_date) -> filtered.sortedBy { it.dueDate }
+            getString(R.string.created_date) -> filtered.sortedBy { it.createdAt }
             else -> filtered
         }
 

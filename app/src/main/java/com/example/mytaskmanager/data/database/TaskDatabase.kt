@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.mytaskmanager.data.dao.TaskDao
 import com.example.mytaskmanager.model.Task
+import com.example.mytaskmanager.utils.AppConstants
 
 
 @Database(
@@ -26,7 +27,7 @@ abstract class TaskDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context,
                     TaskDatabase::class.java,
-                    "task_db"
+                    AppConstants.DB_NAME
                 ).fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance

@@ -1,4 +1,4 @@
-package com.example.mytaskmanager.ui.add
+package com.example.mytaskmanager.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -25,7 +25,8 @@ class AddTaskFragment : Fragment() {
     private lateinit var binding: FragmentAddTaskBinding
     private lateinit var viewModel: TaskViewModel
     private var selectedTask: Task? = null
-    private val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    private val dateFormat =
+        SimpleDateFormat(getString(R.string.yyyy_mm_dd), Locale.getDefault())
 
 
     override fun onCreateView(
@@ -60,7 +61,7 @@ class AddTaskFragment : Fragment() {
 
         // Set up date picker
         val datePicker = MaterialDatePicker.Builder.datePicker()
-            .setTitleText("Select Due Date")
+            .setTitleText(getString(R.string.select_due_date))
             .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
             .setCalendarConstraints(
                 CalendarConstraints.Builder()
@@ -71,12 +72,12 @@ class AddTaskFragment : Fragment() {
 
         // Show date picker when clicking the due date field
         binding.etDueDate.setOnClickListener {
-            datePicker.show(parentFragmentManager, "DATE_PICKER")
+            datePicker.show(parentFragmentManager, getString(R.string.date_picker))
         }
 
         // Show date picker when clicking the end icon
         binding.tilDueDate.setEndIconOnClickListener {
-            datePicker.show(parentFragmentManager, "DATE_PICKER")
+            datePicker.show(parentFragmentManager, getString(R.string.date_picker))
         }
 
         // Handle date selection
@@ -94,7 +95,10 @@ class AddTaskFragment : Fragment() {
 
 
             if (title.isEmpty() || priority.isEmpty() || dueDate.isEmpty()) {
-                Toast.makeText(requireContext(), "Title & Priority required", Toast.LENGTH_SHORT)
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.title_priority_required), Toast.LENGTH_SHORT
+                )
                     .show()
                 return@setOnClickListener
             }
@@ -111,23 +115,27 @@ class AddTaskFragment : Fragment() {
 
             if (selectedTask != null) {
                 viewModel.updateTask(task)
-                Toast.makeText(requireContext(), "Task updated!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.task_updated), Toast.LENGTH_SHORT
+                ).show()
             } else {
                 viewModel.insertTask(task)
-                Toast.makeText(requireContext(), "Task added!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.task_added), Toast.LENGTH_SHORT)
+                    .show()
             }
             parentFragmentManager.popBackStack()
 
         }
 
-        selectedTask = arguments?.getSerializable("task") as? Task
+        selectedTask = arguments?.getSerializable(getString(R.string.task)) as? Task
 
         selectedTask?.let { task ->
             binding.etTitle.setText(task.title)
             binding.etDescription.setText(task.description)
             binding.etPriority.setText(task.priority)
             binding.etDueDate.setText(task.dueDate)
-            binding.btnAdd.text = "Update Task"
+            binding.btnAdd.text = getString(R.string.update_task)
         }
 
     }

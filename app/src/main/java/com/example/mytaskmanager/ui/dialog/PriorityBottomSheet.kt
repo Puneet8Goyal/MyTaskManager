@@ -2,6 +2,7 @@ package com.example.mytaskmanager.ui.dialog
 
 import android.content.Context
 import android.view.LayoutInflater
+import com.example.mytaskmanager.R
 import com.example.mytaskmanager.databinding.BottomSheetPriorityBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
@@ -19,25 +20,25 @@ class PriorityBottomSheet(
             all.forEach { it.setBackgroundResource(android.R.color.darker_gray) }
 
             when (selected) {
-                "High" -> binding.tvHigh.setBackgroundResource(android.R.color.darker_gray)
-                "Medium" -> binding.tvMedium.setBackgroundResource(android.R.color.darker_gray)
-                "Low" -> binding.tvLow.setBackgroundResource(android.R.color.darker_gray)
+                context.getString(R.string.high) -> binding.tvHigh.setBackgroundResource(android.R.color.darker_gray)
+                context.getString(R.string.medium) -> binding.tvMedium.setBackgroundResource(android.R.color.darker_gray)
+                context.getString(R.string.low) -> binding.tvLow.setBackgroundResource(android.R.color.darker_gray)
             }
         }
         highlight(selectedPriority)
 
         binding.tvHigh.setOnClickListener {
-            onPrioritySelected("High")
+            onPrioritySelected(context.getString(R.string.high))
             dialog.dismiss()
         }
 
         binding.tvMedium.setOnClickListener {
-            onPrioritySelected("Medium")
+            onPrioritySelected(context.getString(R.string.medium))
             dialog.dismiss()
         }
 
         binding.tvLow.setOnClickListener {
-            onPrioritySelected("Low")
+            onPrioritySelected(context.getString(R.string.low))
             dialog.dismiss()
         }
 
