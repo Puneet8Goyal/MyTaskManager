@@ -12,7 +12,7 @@ import com.example.mytaskmanager.model.Task
 @Dao
 interface TaskDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertTask(task: Task)
 
     @Delete

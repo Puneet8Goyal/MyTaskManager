@@ -9,11 +9,11 @@ import java.io.Serializable
 data class Task(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    val title: String? = null,
-    val description: String? = null,
-    val priority: String? = null,
-    val dueDate: String? = null,
+    val title: String,
+    val description: String?,
+    val priority: String,
+    val dueDate: String,
     val isCompleted: Boolean = false,
     val completedOnTime: String = "",
-    val createdAt: String? = null,
+    val createdAt: String,
 ) : Serializable

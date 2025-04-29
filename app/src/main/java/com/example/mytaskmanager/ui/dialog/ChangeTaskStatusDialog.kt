@@ -23,13 +23,23 @@ class ChangeTaskStatusDialog(
             .create()
 
         // Restore current status if present
+        restoreCurrentStatus(binding)
+
+        // Set up confirm button
+        setupConfirmButton(binding, dialog)
+
+        dialog.show()
+    }
+
+    private fun restoreCurrentStatus(binding: DialogCompletionStatusBinding) {
         when (task.completedOnTime) {
             context.getString(R.string.completed_early) -> binding.rbEarly.isChecked = true
             context.getString(R.string.completed_on_time) -> binding.rbOnTime.isChecked = true
             context.getString(R.string.completed_late) -> binding.rbLate.isChecked = true
         }
+    }
 
-        // Set up confirm button
+    private fun setupConfirmButton(binding: DialogCompletionStatusBinding, dialog: AlertDialog) {
         binding.btnConfirm.setOnClickListener {
             val selectedId = binding.radioGroupStatus.checkedRadioButtonId
             if (selectedId == -1) {
@@ -55,7 +65,5 @@ class ChangeTaskStatusDialog(
             onSubmit(updatedTask)
             dialog.dismiss()
         }
-
-        dialog.show()
     }
 }

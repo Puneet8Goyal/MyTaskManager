@@ -1,6 +1,5 @@
 package com.example.mytaskmanager.ui.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.mytaskmanager.R
 import com.example.mytaskmanager.data.database.TaskDatabase
 import com.example.mytaskmanager.databinding.FragmentTasksListBinding
-import com.example.mytaskmanager.model.Task
 import com.example.mytaskmanager.repository.TaskRepository
 import com.example.mytaskmanager.ui.adapters.TaskAdapter
 import com.example.mytaskmanager.ui.dialog.ChangeTaskStatusDialog
@@ -23,16 +21,13 @@ import com.example.mytaskmanager.utils.AppConstants
 import com.example.mytaskmanager.utils.launchNextPage
 import com.example.mytaskmanager.viewmodel.TaskViewModel
 import com.example.mytaskmanager.viewmodel.TaskViewModelFactory
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 class TasksListFragment : Fragment() {
 
     private val binding by lazy { FragmentTasksListBinding.inflate(layoutInflater) }
     private lateinit var viewModel: TaskViewModel
     private lateinit var adapter: TaskAdapter
-     var showCompleted: Boolean = false
-    private var allFilteredTasks: List<Task> = emptyList()
+    var showCompleted: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,25 +37,28 @@ class TasksListFragment : Fragment() {
         return binding.root
     }
 
-    private val sheet by lazy {
-        FilterBottomSheet(
-            requireContext(),
-
-            ) { priority, order, sortBy, fromDate, toDate ->
-            applyFilterFromBottomSheet(priority, order, sortBy, fromDate, toDate)
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val dao = TaskDatabase.getDatabase(requireContext()).taskDao()
         val repository = TaskRepository(dao)
         val factory = TaskViewModelFactory(repository)
-        viewModel = ViewModelProvider(this, factory)[TaskViewModel::class.java]
 
-        showCompleted = arguments?.getBoolean(getString(R.string.isCompleted)) ?: false
+        // Get ViewModel from parent activity to share state between fragments
+        viewModel = ViewModelProvider(requireActivity(), factory)[TaskViewModel::class.java]
 
+        // Set completion status based on fragment parameter
+        viewModel.setShowCompleted(showCompleted)
+
+        setupSortSpinner()
+        setupRecyclerView()
+        setupSearchListener()
+        setupFilterButton()
+        setupAddTaskButton()
+        observeViewModel()
+    }
+
+    private fun setupSortSpinner() {
         val sortOptions: List<String> = listOf(
             getString(R.string.none),
             getString(R.string.priority),
@@ -73,6 +71,29 @@ class TasksListFragment : Fragment() {
             sortOptions
         )
         binding.spinnerSort.adapter = spinnerAdapter
+
+        binding.spinnerSort.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val option = parent.getItemAtPosition(position).toString()
+                val sortBy = when (option) {
+                    getString(R.string.priority) -> "priority"
+                    getString(R.string.due_date) -> "due_date"
+                    getString(R.string.created_date) -> "created_date"
+                    else -> "none"
+                }
+                viewModel.setFilterParameters(sortBy = sortBy)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+    }
+
+    private fun setupRecyclerView() {
         binding.recyclerView.layoutAnimation =
             AnimationUtils.loadLayoutAnimation(requireContext(), R.anim.layout_fall_down)
 
@@ -81,7 +102,6 @@ class TasksListFragment : Fragment() {
                 requireContext().launchNextPage(
                     AppConstants.FragmentsTypes.addTaskFragment,
                     init = { putExtra(getString(R.string.task), selectedTask) })
-
             },
             onDelete = { taskToDelete ->
                 viewModel.deleteTask(taskToDelete)
@@ -99,122 +119,31 @@ class TasksListFragment : Fragment() {
         )
 
         binding.recyclerView.adapter = adapter
+    }
 
+    private fun setupSearchListener() {
         binding.etSearch.addTextChangedListener { editable ->
-            val query = editable.toString().trim()
-            val sortBy = binding.spinnerSort.selectedItem.toString()
-            applyFiltersAndSort(query, sortBy)
+            viewModel.setSearchQuery(editable.toString().trim())
         }
+    }
 
-        binding.spinnerSort.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                val sortBy = parent.getItemAtPosition(position).toString()
-                val query = binding.etSearch.text.toString()
-                applyFiltersAndSort(query, sortBy)
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {}
-        }
-
-        // Set up filter button
+    private fun setupFilterButton() {
         binding.btnFilter.setOnClickListener {
-            sheet.open()
+            FilterBottomSheet(requireContext(), viewModel).open()
         }
+    }
 
+    private fun setupAddTaskButton() {
         binding.fabAddTask.setOnClickListener {
             requireContext().launchNextPage(AppConstants.FragmentsTypes.addTaskFragment)
         }
+    }
 
-        viewModel.allTasks.observe(viewLifecycleOwner) { tasks ->
-            val filtered = tasks.filter { it.isCompleted == showCompleted }
-            allFilteredTasks = filtered
-            applyFiltersAndSort(
-                binding.etSearch.text.toString(),
-                binding.spinnerSort.selectedItem.toString(),
-            )
+    private fun observeViewModel() {
+        // Observe filtered tasks from ViewModel
+        viewModel.filteredTasks.observe(viewLifecycleOwner) { tasks ->
+            adapter.setTasks(tasks) //Updates the adapter with the new task list.
             binding.recyclerView.scheduleLayoutAnimation()
-        }
-    }
-
-    // Function to apply filters from the bottom sheet
-    fun applyFilterFromBottomSheet(
-        priority: String?,
-        order: String?,
-        sortBy: String?,
-        fromDate: String?,
-        toDate: String?
-    ) {
-        val sdf = SimpleDateFormat(getString(R.string.yyyy_mm_dd), Locale.getDefault())
-        val filtered = allFilteredTasks
-            .filter { task ->
-                val taskDate = try {
-                    sdf.parse(task.dueDate)
-                } catch (e: Exception) {
-                    null
-                }
-
-                val passPriority = priority == null || task.priority.equals(
-                    priority,
-                    ignoreCase = true
-                )
-                val passDateRange =
-                    if (fromDate != null && toDate != null && taskDate != null) {
-                        val from = sdf.parse(fromDate)
-                        val to = sdf.parse(toDate)
-                        taskDate in from..to
-                    } else true
-
-                passPriority && passDateRange
-            }.let {
-                when (sortBy) {
-                    getString(R.string.due_date) -> if (order == getString(R.string.asc)) it.sortedBy { t -> t.dueDate } else it.sortedByDescending { t -> t.dueDate }
-                    getString(R.string.created_date) -> if (order == getString(R.string.asc)) it.sortedBy { t -> t.createdAt } else it.sortedByDescending { t -> t.createdAt }
-                    else -> it
-                }
-            }
-        adapter.setTasks(filtered)
-    }
-
-    private fun applyFiltersAndSort(query: String = "", sortBy: String = getString(R.string.none)) {
-        var filtered = allFilteredTasks
-
-        if (query.isNotEmpty()) {
-            filtered = filtered.filter {
-                it.title?.contains(query, true) == true ||
-                        it.description?.contains(query, true) == true
-            }
-        }
-
-        filtered = when (sortBy) {
-            getString(R.string.priority) -> filtered.sortedBy {
-                when (it.priority?.lowercase()) {
-                    getString(R.string.high) -> 1
-                    getString(R.string.medium) -> 2
-                    getString(R.string.low) -> 3
-                    else -> 4
-                }
-            }
-
-            getString(R.string.due_date) -> filtered.sortedBy { it.dueDate }
-            getString(R.string.created_date) -> filtered.sortedBy { it.createdAt }
-            else -> filtered
-        }
-
-        adapter.setTasks(filtered)
-    }
-
-    companion object {
-        fun newInstance(showCompleted: Boolean): TasksListFragment {
-            val fragment = TasksListFragment()
-            val args = Bundle()
-            args.putBoolean("isCompleted", showCompleted)
-            fragment.arguments = args
-            return fragment
         }
     }
 }
