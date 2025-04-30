@@ -1,6 +1,7 @@
 package com.example.mytaskmanager.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,12 +35,14 @@ class TasksListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        Log.e("onCreateView", ": ", )
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        Log.e("onViewCreated", ": ", )
         val dao = TaskDatabase.getDatabase(requireContext()).taskDao()
         val repository = TaskRepository(dao)
         val factory = TaskViewModelFactory(repository)

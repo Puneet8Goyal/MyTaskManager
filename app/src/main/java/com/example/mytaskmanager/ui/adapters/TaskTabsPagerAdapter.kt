@@ -11,12 +11,14 @@ class TaskTabsPagerAdapter(
     lifecycle: Lifecycle,
 ) :
     FragmentStateAdapter(fragmentManager, lifecycle) {
-    override fun getItemCount(): Int = 2
+    override fun getItemCount(): Int = 4
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> TasksListFragment().apply { showCompleted = false }
             1 -> TasksListFragment().apply { showCompleted = true }
+            2 -> TasksListFragment().apply { showCompleted = false }
+            3 -> TasksListFragment().apply { showCompleted = true }
             else -> Fragment()
 
         }

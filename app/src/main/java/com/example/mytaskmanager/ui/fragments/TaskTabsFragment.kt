@@ -47,6 +47,8 @@ class TaskTabsFragment : Fragment() {
             tab.text = when (position) {
                 0 -> getString(R.string.pending)
                 1 -> getString(R.string.completed)
+                2 -> getString(R.string.pending)
+                3 -> getString(R.string.completed)
                 else -> ""
             }
         }.attach()
