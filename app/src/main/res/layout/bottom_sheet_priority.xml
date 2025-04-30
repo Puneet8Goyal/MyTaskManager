@@ -57,13 +57,6 @@
                 android:textColor="#D32F2F"
                 android:textSize="16sp" />
 
-            <ImageView
-                android:id="@+id/ivHighCheck"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@android:drawable/ic_menu_edit"
-                android:visibility="gone"
-                app:tint="#D32F2F" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
@@ -100,13 +93,6 @@
                 android:textColor="#FFA000"
                 android:textSize="16sp" />
 
-            <ImageView
-                android:id="@+id/ivMediumCheck"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@android:drawable/ic_menu_edit"
-                android:visibility="gone"
-                app:tint="#FFA000" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
@@ -142,13 +128,6 @@
                 android:textColor="#689F38"
                 android:textSize="16sp" />
 
-            <ImageView
-                android:id="@+id/ivLowCheck"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@android:drawable/ic_menu_edit"
-                android:visibility="gone"
-                app:tint="#689F38" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

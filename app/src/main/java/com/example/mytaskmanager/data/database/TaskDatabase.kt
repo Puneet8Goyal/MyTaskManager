@@ -43,7 +43,8 @@ abstract class TaskDatabase : RoomDatabase() {
 val MIGRATION_2_3 = object : Migration(2, 3) {
     override fun migrate(db: SupportSQLiteDatabase) {
         // Create a new table with updated schema (non-nullable fields)
-        db.execSQL("""
+        db.execSQL(
+            """
             CREATE TABLE tasks_new (
                 id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                 title TEXT NOT NULL,
@@ -54,9 +55,11 @@ val MIGRATION_2_3 = object : Migration(2, 3) {
                 completedOnTime TEXT NOT NULL DEFAULT '',
                 createdAt TEXT NOT NULL
             )
-        """)
+        """
+        )
         // Copy data from old table, providing default values for null fields
-        db.execSQL("""
+        db.execSQL(
+            """
             INSERT INTO tasks_new (id, title, description, priority, dueDate, isCompleted, completedOnTime, createdAt)
             SELECT 
                 id, 
@@ -68,7 +71,8 @@ val MIGRATION_2_3 = object : Migration(2, 3) {
                 COALESCE(completedOnTime, ''), 
                 COALESCE(createdAt, '1970-01-01')
             FROM tasks
-        """)
+        """
+        )
         // Drop old table and rename new table
         db.execSQL("DROP TABLE tasks")
         db.execSQL("ALTER TABLE tasks_new RENAME TO tasks")

@@ -39,7 +39,7 @@ class TaskTabsFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity(), factory)[TaskViewModel::class.java]
 
         // Set up ViewPager and adapter
-        adapter = TaskTabsPagerAdapter(this)
+        adapter = TaskTabsPagerAdapter(requireActivity().supportFragmentManager, lifecycle)
         binding.viewPager.adapter = adapter
 
         // Set up TabLayout with ViewPager
@@ -50,15 +50,6 @@ class TaskTabsFragment : Fragment() {
                 else -> ""
             }
         }.attach()
-
-        // Update ViewModel's showCompleted value when tab changes
-        binding.viewPager.registerOnPageChangeCallback(object :
-            androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                viewModel.setShowCompleted(position == 1)
-            }
-        })
 
         // Set up toolbar menu
         binding.toolbar.setOnMenuItemClickListener { menuItem ->

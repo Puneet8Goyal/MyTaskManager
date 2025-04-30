@@ -28,7 +28,6 @@ class TaskViewModel(private val repository: TaskRepository) : ViewModel() {
     private val _sortBy = MutableLiveData("due_date")
     private val _fromDate = MutableLiveData<String?>(null)
     private val _toDate = MutableLiveData<String?>(null)
-    private val _showCompleted = MutableLiveData(false)
 
     // Exposed LiveData
     val searchQuery: LiveData<String> = _searchQuery
@@ -37,7 +36,6 @@ class TaskViewModel(private val repository: TaskRepository) : ViewModel() {
     val sortBy: LiveData<String> = _sortBy
     val fromDate: LiveData<String?> = _fromDate
     val toDate: LiveData<String?> = _toDate
-    val showCompleted: LiveData<Boolean> = _showCompleted
 
     // Combined filtered result
     val filteredTasks: LiveData<List<Task>> = MediatorLiveData<List<Task>>().apply {
@@ -50,13 +48,13 @@ class TaskViewModel(private val repository: TaskRepository) : ViewModel() {
             _sortBy,
             _fromDate,
             _toDate,
-            _showCompleted
         )
             .forEach { source -> addSource(source) { update() } }
     }
 
     // Date formatter
-    private val formatter = DateTimeFormatter.ofPattern(AppConstants.YYYY_MM_DD, Locale.getDefault())
+    private val formatter =
+        DateTimeFormatter.ofPattern(AppConstants.YYYY_MM_DD, Locale.getDefault())
 
     // Task operations
     fun insertTask(task: Task) = viewModelScope.launch { repository.insertTask(task) }
@@ -80,9 +78,14 @@ class TaskViewModel(private val repository: TaskRepository) : ViewModel() {
     }
 
     fun clearFilters(context: Context) =
-        setFilterParameters(null, context.getString(R.string.asc), context.getString(R.string.due_date), null, null).also { _searchQuery.value = "" }
+        setFilterParameters(
+            null,
+            context.getString(R.string.asc),
+            context.getString(R.string.due_date),
+            null,
+            null
+        ).also { _searchQuery.value = "" }
 
-    fun setShowCompleted(show: Boolean) = _showCompleted.postValue(show)
 
     // Core filtering logic
     private fun computeFiltered(): List<Task> {
@@ -96,7 +99,7 @@ class TaskViewModel(private val repository: TaskRepository) : ViewModel() {
 
         // build sequence of filters
         val seq = tasks.asSequence()
-            .filter { it.isCompleted == showCompleted.value }
+//            .filter { it.isCompleted == showCompleted.value }
             .filter {
                 q.isEmpty() || it.title.contains(q, true) || (it.description?.contains(
                     q,

@@ -35,18 +35,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:text="Priority"
-            android:textSize="14sp"
             android:textColor="@android:color/darker_gray"
-            android:layout_marginBottom="8dp" />
+            android:textSize="14sp" />
 
         <RadioGroup
             android:id="@+id/rgPriority"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginBottom="16dp"
             android:background="@drawable/rounded_border_bg"
+            android:orientation="horizontal"
             android:padding="8dp">
 
             <RadioButton
@@ -78,18 +78,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:text="Sort Order"
-            android:textSize="14sp"
             android:textColor="@android:color/darker_gray"
-            android:layout_marginBottom="8dp" />
+            android:textSize="14sp" />
 
         <RadioGroup
             android:id="@+id/rgOrder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginBottom="16dp"
             android:background="@drawable/rounded_border_bg"
+            android:orientation="horizontal"
             android:padding="8dp">
 
             <RadioButton
@@ -113,18 +113,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:text="Sort By"
-            android:textSize="14sp"
             android:textColor="@android:color/darker_gray"
-            android:layout_marginBottom="8dp" />
+            android:textSize="14sp" />
 
         <RadioGroup
             android:id="@+id/rgDateType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginBottom="16dp"
             android:background="@drawable/rounded_border_bg"
+            android:orientation="horizontal"
             android:padding="8dp">
 
             <RadioButton
@@ -148,44 +148,44 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:text="From Date"
-            android:textSize="14sp"
             android:textColor="@android:color/darker_gray"
-            android:layout_marginBottom="8dp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tvFromDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/date_selector_bg"
-            android:padding="12dp"
-            android:text="Select From Date"
-            android:textSize="14sp"
             android:drawableEnd="@android:drawable/ic_menu_my_calendar"
             android:drawablePadding="8dp"
-            android:layout_marginBottom="16dp" />
+            android:padding="12dp"
+            android:text="Select From Date"
+            android:textSize="14sp" />
 
         <!-- To Date -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:text="To Date"
-            android:textSize="14sp"
             android:textColor="@android:color/darker_gray"
-            android:layout_marginBottom="8dp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tvToDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
             android:background="@drawable/date_selector_bg"
-            android:padding="12dp"
-            android:text="Select To Date"
-            android:textSize="14sp"
             android:drawableEnd="@android:drawable/ic_menu_my_calendar"
             android:drawablePadding="8dp"
-            android:layout_marginBottom="24dp" />
+            android:padding="12dp"
+            android:text="Select To Date"
+            android:textSize="14sp" />
 
         <!-- Buttons -->
         <LinearLayout
@@ -200,18 +200,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:backgroundTint="@color/design_default_color_primary"
-                android:text="Apply Filters"
                 android:padding="12dp"
+                android:text="Apply Filters"
                 app:cornerRadius="8dp" />
 
             <Button
                 android:id="@+id/btnClearFilters"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Clear Filters"
                 android:layout_marginTop="8dp"
                 android:backgroundTint="@android:color/holo_red_light"
                 android:padding="12dp"
+                android:text="Clear Filters"
                 app:cornerRadius="8dp" />
         </LinearLayout>
     </LinearLayout>

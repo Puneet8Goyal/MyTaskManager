@@ -57,13 +57,13 @@ dependencies {
     kapt(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
 
-    
-    implementation (libs.material.v1110)
+
+    implementation(libs.material.v1110)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation (libs.material.v190)
+    implementation(libs.material.v190)
     implementation(libs.androidx.core.splashscreen)
-    implementation (libs.androidx.core.splashscreen.v100)
+    implementation(libs.androidx.core.splashscreen.v100)
 
 }

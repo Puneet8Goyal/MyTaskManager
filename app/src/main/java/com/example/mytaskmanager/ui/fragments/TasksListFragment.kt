@@ -47,9 +47,6 @@ class TasksListFragment : Fragment() {
         // Get ViewModel from parent activity to share state between fragments
         viewModel = ViewModelProvider(requireActivity(), factory)[TaskViewModel::class.java]
 
-        // Set completion status based on fragment parameter
-        viewModel.setShowCompleted(showCompleted)
-
         setupSortSpinner()
         setupRecyclerView()
         setupSearchListener()
@@ -142,7 +139,8 @@ class TasksListFragment : Fragment() {
     private fun observeViewModel() {
         // Observe filtered tasks from ViewModel
         viewModel.filteredTasks.observe(viewLifecycleOwner) { tasks ->
-            adapter.setTasks(tasks) //Updates the adapter with the new task list.
+            val filteredTasks = tasks.filter { it.isCompleted == showCompleted }
+            adapter.setTasks(filteredTasks) //Updates the adapter with the new task list.
             binding.recyclerView.scheduleLayoutAnimation()
         }
     }

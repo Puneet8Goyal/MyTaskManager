@@ -19,17 +19,17 @@ class PriorityBottomSheet(
         highlightSelectedPriority(binding, selectedPriority)
 
         // Set up click listeners
-        binding.tvHigh.setOnClickListener {
+        binding.cardHigh.setOnClickListener {
             onPrioritySelected(context.getString(R.string.high))
             dialog.dismiss()
         }
 
-        binding.tvMedium.setOnClickListener {
+        binding.cardMedium.setOnClickListener {
             onPrioritySelected(context.getString(R.string.medium))
             dialog.dismiss()
         }
 
-        binding.tvLow.setOnClickListener {
+        binding.cardLow.setOnClickListener {
             onPrioritySelected(context.getString(R.string.low))
             dialog.dismiss()
         }
