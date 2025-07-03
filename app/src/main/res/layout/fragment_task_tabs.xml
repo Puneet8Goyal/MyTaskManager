@@ -17,7 +17,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="Task Manager"
+            app:title="Task Ease"
             app:titleCentered="true"
             app:titleTextAppearance="?attr/textAppearanceHeadline6" />
 
