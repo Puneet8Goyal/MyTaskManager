@@ -17,8 +17,6 @@ class TaskTabsPagerAdapter(
         return when (position) {
             0 -> TasksListFragment().apply { showCompleted = false }
             1 -> TasksListFragment().apply { showCompleted = true }
-//            2 -> TasksListFragment().apply { showCompleted = false }
-//            3 -> TasksListFragment().apply { showCompleted = true }
             else -> Fragment()
 
         }
