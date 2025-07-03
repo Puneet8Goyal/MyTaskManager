@@ -91,20 +91,11 @@ TaskEase is a simple yet powerful Android task management app that helps users c
 
 ---
 
-## 📂 Folder Structure
+## 📥 Download APK
 
-```
-app/                 # Android app module
-├─ src/              # source sets
-│  ├─ main/
-│  │  ├─ java/com/example/mytaskmanager/   # ViewModels, Repos, DAOs, Models
-│  │  ├─ res/                             # layouts, drawables, values
-│  │  └─ AndroidManifest.xml              # app manifest
-├─ build.gradle.kts  # module-level Gradle config
-└─ ...
+Grab the latest TaskEase APK to install directly on your device:
 
-settings.gradle.kts  # root Gradle settings
-```
+[Download TaskEase v1.0 APK](https://github.com/Puneet8Goyal/TaskEase/releases/download/V1.0/TaskEase-v1.0.apk)
 
 ---
 
