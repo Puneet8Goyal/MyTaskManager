@@ -1,11 +1,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.MyTaskManager" parent="Theme.Material3.Light.NoActionBar">
+    <style name="Base.Theme.TaskEase" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="android:windowDisablePreview">true</item>
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
 
-    <style name="Theme.MyTaskManager" parent="Base.Theme.MyTaskManager" />
+    <style name="Theme.TaskEase" parent="Base.Theme.TaskEase" />
 </resources>

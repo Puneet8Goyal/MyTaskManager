@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.mytaskmanager"
+    namespace = "com.example.taskease"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.mytaskmanager"
+        applicationId = "com.example.taskease"
         minSdk = 26
         targetSdk = 35
         versionCode = 1

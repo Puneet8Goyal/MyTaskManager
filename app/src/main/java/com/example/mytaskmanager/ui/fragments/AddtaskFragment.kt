@@ -1,4 +1,4 @@
-package com.example.mytaskmanager.ui.fragments
+package com.example.taskease.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.mytaskmanager.R
-import com.example.mytaskmanager.data.database.TaskDatabase
-import com.example.mytaskmanager.databinding.FragmentAddTaskBinding
-import com.example.mytaskmanager.model.Task
-import com.example.mytaskmanager.repository.TaskRepository
-import com.example.mytaskmanager.ui.dialog.PriorityBottomSheet
-import com.example.mytaskmanager.viewmodel.TaskViewModel
-import com.example.mytaskmanager.viewmodel.TaskViewModelFactory
+import com.example.taskease.R
+import com.example.taskease.data.database.TaskDatabase
+import com.example.taskease.databinding.FragmentAddTaskBinding
+import com.example.taskease.model.Task
+import com.example.taskease.repository.TaskRepository
+import com.example.taskease.ui.dialog.PriorityBottomSheet
+import com.example.taskease.viewmodel.TaskViewModel
+import com.example.taskease.viewmodel.TaskViewModelFactory
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import java.text.SimpleDateFormat

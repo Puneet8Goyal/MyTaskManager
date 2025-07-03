@@ -1,14 +1,14 @@
-package com.example.mytaskmanager
+package com.example.taskease
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.mytaskmanager.databinding.ActivityMainBinding
-import com.example.mytaskmanager.ui.fragments.AddTaskFragment
-import com.example.mytaskmanager.ui.fragments.SplashFragment
-import com.example.mytaskmanager.ui.fragments.TaskTabsFragment
-import com.example.mytaskmanager.ui.fragments.TasksListFragment
-import com.example.mytaskmanager.utils.AppConstants
+import com.example.taskease.databinding.ActivityMainBinding
+import com.example.taskease.ui.fragments.AddTaskFragment
+import com.example.taskease.ui.fragments.SplashFragment
+import com.example.taskease.ui.fragments.TaskTabsFragment
+import com.example.taskease.ui.fragments.TasksListFragment
+import com.example.taskease.utils.AppConstants
 
 class MainActivity : AppCompatActivity() {
 

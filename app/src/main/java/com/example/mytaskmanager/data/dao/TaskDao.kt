@@ -1,4 +1,4 @@
-package com.example.mytaskmanager.data.dao
+package com.example.taskease.data.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -7,7 +7,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.example.mytaskmanager.model.Task
+import com.example.taskease.model.Task
 
 @Dao
 interface TaskDao {

@@ -1,4 +1,4 @@
-package com.example.mytaskmanager.utils
+package com.example.taskease.utils
 
 interface AppConstants {
 

@@ -1,4 +1,4 @@
-package com.example.mytaskmanager.data.database
+package com.example.taskease.data.database
 
 import android.content.Context
 import androidx.room.Database
@@ -6,9 +6,9 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.example.mytaskmanager.data.dao.TaskDao
-import com.example.mytaskmanager.model.Task
-import com.example.mytaskmanager.utils.AppConstants
+import com.example.taskease.data.dao.TaskDao
+import com.example.taskease.model.Task
+import com.example.taskease.utils.AppConstants
 
 
 @Database(

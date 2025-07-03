@@ -1,9 +1,9 @@
-package com.example.mytaskmanager.ui.dialog
+package com.example.taskease.ui.dialog
 
 import android.content.Context
 import android.view.LayoutInflater
-import com.example.mytaskmanager.R
-import com.example.mytaskmanager.databinding.BottomSheetPriorityBinding
+import com.example.taskease.R
+import com.example.taskease.databinding.BottomSheetPriorityBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class PriorityBottomSheet(

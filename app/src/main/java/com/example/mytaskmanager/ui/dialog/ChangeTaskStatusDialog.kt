@@ -1,13 +1,13 @@
-package com.example.mytaskmanager.ui.dialog
+package com.example.taskease.ui.dialog
 
 import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.widget.RadioButton
 import android.widget.Toast
-import com.example.mytaskmanager.R
-import com.example.mytaskmanager.databinding.DialogCompletionStatusBinding
-import com.example.mytaskmanager.model.Task
+import com.example.taskease.R
+import com.example.taskease.databinding.DialogCompletionStatusBinding
+import com.example.taskease.model.Task
 
 class ChangeTaskStatusDialog(
     private val context: Context,

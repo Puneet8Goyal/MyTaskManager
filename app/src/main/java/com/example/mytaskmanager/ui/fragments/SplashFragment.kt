@@ -1,4 +1,4 @@
-package com.example.mytaskmanager.ui.fragments
+package com.example.taskease.ui.fragments
 
 import android.animation.Animator
 import android.animation.AnimatorSet
@@ -10,9 +10,9 @@ import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
-import com.example.mytaskmanager.R
-import com.example.mytaskmanager.utils.AppConstants
-import com.example.mytaskmanager.utils.launchNextPage
+import com.example.taskease.R
+import com.example.taskease.utils.AppConstants
+import com.example.taskease.utils.launchNextPage
 
 
 class SplashFragment : Fragment() {

@@ -1,9 +1,9 @@
-package com.example.mytaskmanager.utils
+package com.example.taskease.utils
 
 import android.content.Intent
 import androidx.core.app.ActivityOptionsCompat
-import com.example.mytaskmanager.MainActivity
-import com.example.mytaskmanager.R
+import com.example.taskease.MainActivity
+import com.example.taskease.R
 
 inline fun android.content.Context.launchNextPage(
     fragmentType: String,

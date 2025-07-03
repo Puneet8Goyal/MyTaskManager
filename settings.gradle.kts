@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "MyTaskManager"
+rootProject.name = "TaskEase"
 include(":app")
  

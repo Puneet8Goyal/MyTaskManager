@@ -1,4 +1,4 @@
-package com.example.mytaskmanager.ui.adapters
+package com.example.taskease.ui.adapters
 
 import android.content.res.ColorStateList
 import android.view.LayoutInflater
@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.graphics.toColorInt
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mytaskmanager.R
-import com.example.mytaskmanager.databinding.ItemTaskBinding
-import com.example.mytaskmanager.model.Task
+import com.example.taskease.R
+import com.example.taskease.databinding.ItemTaskBinding
+import com.example.taskease.model.Task
 
 class TaskAdapter(
     private val onEdit: (Task) -> Unit,

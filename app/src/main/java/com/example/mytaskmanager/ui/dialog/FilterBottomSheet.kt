@@ -1,11 +1,11 @@
-package com.example.mytaskmanager.ui.dialog
+package com.example.taskease.ui.dialog
 
 import android.app.DatePickerDialog
 import android.content.Context
 import android.view.LayoutInflater
-import com.example.mytaskmanager.R
-import com.example.mytaskmanager.databinding.BottomSheetFilterBinding
-import com.example.mytaskmanager.viewmodel.TaskViewModel
+import com.example.taskease.R
+import com.example.taskease.databinding.BottomSheetFilterBinding
+import com.example.taskease.viewmodel.TaskViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.text.SimpleDateFormat
 import java.util.Calendar

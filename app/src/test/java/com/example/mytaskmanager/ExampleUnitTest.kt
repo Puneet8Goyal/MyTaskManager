@@ -1,4 +1,4 @@
-package com.example.mytaskmanager
+package com.example.taskease
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

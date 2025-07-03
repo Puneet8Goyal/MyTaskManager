@@ -1,4 +1,4 @@
-package com.example.mytaskmanager.ui.fragments
+package com.example.taskease.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,14 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.mytaskmanager.R
-import com.example.mytaskmanager.data.database.TaskDatabase
-import com.example.mytaskmanager.databinding.FragmentTaskTabsBinding
-import com.example.mytaskmanager.repository.TaskRepository
-import com.example.mytaskmanager.ui.adapters.TaskTabsPagerAdapter
-import com.example.mytaskmanager.ui.dialog.FilterBottomSheet
-import com.example.mytaskmanager.viewmodel.TaskViewModel
-import com.example.mytaskmanager.viewmodel.TaskViewModelFactory
+import com.example.taskease.R
+import com.example.taskease.data.database.TaskDatabase
+import com.example.taskease.databinding.FragmentTaskTabsBinding
+import com.example.taskease.repository.TaskRepository
+import com.example.taskease.ui.adapters.TaskTabsPagerAdapter
+import com.example.taskease.ui.dialog.FilterBottomSheet
+import com.example.taskease.viewmodel.TaskViewModel
+import com.example.taskease.viewmodel.TaskViewModelFactory
 import com.google.android.material.tabs.TabLayoutMediator
 
 class TaskTabsFragment : Fragment() {

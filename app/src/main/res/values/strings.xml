@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyTaskManager</string>
+    <string name="app_name">TaskEase</string>
     <string name="task_title">Task Title</string>
     <string name="description">Description</string>
     <string name="priority_low_medium_high">Priority (Low, Medium, High)</string>

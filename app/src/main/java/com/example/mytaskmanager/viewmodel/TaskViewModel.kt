@@ -1,4 +1,4 @@
-package com.example.mytaskmanager.viewmodel
+package com.example.taskease.viewmodel
 
 import android.content.Context
 import androidx.lifecycle.LiveData
@@ -7,10 +7,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.mytaskmanager.R
-import com.example.mytaskmanager.model.Task
-import com.example.mytaskmanager.repository.TaskRepository
-import com.example.mytaskmanager.utils.AppConstants
+import com.example.taskease.R
+import com.example.taskease.model.Task
+import com.example.taskease.repository.TaskRepository
+import com.example.taskease.utils.AppConstants
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
