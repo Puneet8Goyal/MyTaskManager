@@ -58,6 +58,8 @@ class TaskAdapter(
         holder.binding.btnMenu.setOnClickListener {
             val popup = PopupMenu(holder.itemView.context, holder.binding.btnMenu)
             popup.menuInflater.inflate(R.menu.task_menu, popup.menu)
+            // hide “Edit” when task is completed
+            popup.menu.findItem(R.id.menu_edit)?.isVisible = !task.isCompleted
             popup.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
                     R.id.menu_edit -> {

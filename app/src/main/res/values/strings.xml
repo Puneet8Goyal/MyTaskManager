@@ -15,7 +15,7 @@
     <string name="search">Search</string>
     <string name="completed">✅ Completed</string>
     <string name="mark_as_pending">Mark as Pending</string>
-    <string name="priority">Priority: %1$s</string>
+    <string name="priority">Priority</string>
     <string name="due">Due: %1$s</string>
     <string name="created">Created: %1$s</string>
     <string name="completed_early">Completed Early</string>
